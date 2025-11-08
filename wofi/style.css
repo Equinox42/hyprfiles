@@ -1,0 +1,107 @@
+@import url('$HOME/.config/waybar/matugen/matugen-waybar.css');
+
+
+@define-color background #2a2a2e;
+@define-color surface #2a2a3c;
+@define-color on_surface #ffffff;
+@define-color primary #f5ebbf;
+@define-color secondary #9aa5ce;
+@define-color error #f38ba8;
+
+@keyframes fadeIn {
+    0% {
+    }
+    100% {
+    }
+}
+
+* {
+    all:unset;
+    font-family: 'Fira Sans Semibold', monospace;
+    font-size: 15px;
+    outline: none;
+    border: none;
+    text-shadow:none;
+    background-color:transparent;
+}
+
+window {
+    all:unset;
+    padding: 20px;
+    border-radius: 0px;
+    background-color: alpha(@background,.5);
+}
+#inner-box {
+    margin: 2px;
+    border: none;
+}
+#outer-box {    
+    border: none;
+}
+#scroll {
+    margin: 0px;
+    padding: 15px;
+    border: none;
+}
+#input {
+    all:unset;
+    margin-left:20px;
+    margin-right:20px;
+    margin-top:20px;
+    padding: 15px;
+    border: none;
+    outline: none;
+    color: @on_surface;
+    box-shadow: 1px 1px 5px rgba(0,0,0, .5);
+    border-radius:10;
+    background-color: alpha(@background,.2);
+}
+#input image {
+    border: none;
+    color: @error;
+    padding-right:10px;
+}
+#input * {
+    border: none;
+    outline: none;
+}
+
+#input:focus {
+    outline: none;
+    border: none;
+    border-radius:10;
+}
+#text {
+    margin: 5px;
+    border: none;
+    color: @on_surface;
+    outline: none;
+}
+#text {
+    margin: 5px;
+    border: none;
+    color: @on_surface;
+    outline: none;
+}
+#entry {
+    border: none;
+    margin: 5px;
+    padding: 10px;
+}
+#entry arrow {
+    border: none;
+    color: @secondary;
+
+}
+#entry:selected {
+    box-shadow: 1px 1px 5px rgba(255,255,255, .03);
+    border: none;
+    border-radius: 20px;
+    background-color:transparent;
+}
+#entry:selected #text {
+    color: @primary;
+}
+#entry:drop(active) {
+    background-color: @primary !important;
+}

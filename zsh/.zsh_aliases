@@ -1,0 +1,122 @@
+# -- ALIAS --
+
+# ---------------------------
+# -- BUILT-IN --
+# ---------------------------
+
+alias ..='cd ..'
+alias ls='eza --icons --color=always'
+alias ll='eza -l --icons --group --color=always'
+alias la='eza -la --icons --group --color=always'
+alias du='duf'
+alias cat='bat --theme Nord'
+alias vi='vim'
+alias top='btop'
+alias grep='grep --color=auto'
+alias tp='trashy put'
+alias diff='colordiff'
+
+# ---------------------------
+# -- KITTY --
+# ---------------------------
+
+alias kittyimage='kitty +kitten icat'
+alias sshk='kitty +kitten ssh'
+
+# ---------------------------
+# -- DOTFILES --
+# ---------------------------
+
+alias zshconfig='vim ~/.config/zsh/.zshrc'
+alias starshipconfig='vim ~/.config/starship.toml'
+alias kittyconfig='vim ~/.config/kitty/kitty.conf'
+alias zshcolors='vim ~/.config/zsh/.zsh_colors'
+alias aliases='vim ~/.config/zsh/.zsh_aliases'
+alias dotfiles='cd ~/dotfiles/'
+
+# ---------------------------
+# -- PACKAGES --
+# ---------------------------
+
+alias pacmanupdate='yay -Syu'
+alias pacmandump='pacman -Qq > ~/.config/packages.list'
+alias pacmanremove='pacman -Rs'
+
+# ---------------------------
+# -- AWS --
+# ---------------------------
+
+function awsp() {
+  local profile
+  profile=$(sed -n 's/^\[profile \(.*\)\]/\1/p' ~/.aws/config | fzf)
+  if [[ -n "$profile" ]]; then
+    export AWS_PROFILE="$profile"
+    echo "Switched to AWS_PROFILE=$AWS_PROFILE"
+  fi
+}
+
+# ---------------------------
+# -- KUBERNETES --
+# ---------------------------
+
+alias k='kubectl'
+alias kga='kubectl get all -n'
+alias kgp='kubectl get pods'
+alias kgs='kubectl get service'
+alias kctx='kubectx'
+alias kns='kubens'
+
+# convertit la variable d'environnement $NS en flag de namespace si cette variable existe (utilisé dans les fonctions suivantes)
+function ns_flag {
+    local ns_flag="-n $NS"
+    if [ -n "$NS" ]; then echo "$ns_flag"; fi
+}
+
+# créer un secret k8s depuis un fichier d'environnement
+function kmakesec {
+    k create secret generic $1 --from-env-file $2 $(ns_flag) --dry-run=client -o yaml
+}
+
+# récupère un secret k8s au format json et base64-décodé
+function kgetsec {
+    local get_secret="k get secrets $1 $(ns_flag) -o json | jq '(.data[] |= @base64d).data'"
+    if [ -n "$2" ]; then
+        eval "$get_secret" | jq -r ".[\"$2\"]"
+    else
+        eval "$get_secret -C"
+    fi
+}
+
+# ---------------------------
+# -- HELM --
+# ---------------------------
+
+alias hla='helm list --all-namespaces'
+alias hrl='helm repo list'
+
+# ---------------------------
+# -- GIT --
+# ---------------------------
+
+alias gs='git status -s'
+alias gsi='git switch $(git branch | fzf)'
+alias glo='git log --oneline --decorate'
+
+
+# ---------------------------
+# -- ARSENAL --
+# ---------------------------
+
+alias a='arsenal'
+
+# ---------------------------
+# -- UTILS --
+# ---------------------------
+
+alias buds='galaxybudsclient' 
+
+# ---------------------------
+# -- TERRAFORM --
+# ---------------------------
+
+alias tf='terraform'

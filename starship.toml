@@ -1,0 +1,99 @@
+# Commands may be slower in restricted environments, e.g. containers
+command_timeout = 10000
+
+format ="""
+[   ](bold fg:#F8FAFC)\
+$directory\
+$fill\
+$aws$kubernetes$git_branch$git_commit$git_state$git_status\
+$time
+$character
+"""
+
+palette = 'beach'
+add_newline = true
+
+[palettes.main]
+c1 = '#5fa9f4' # Directory / Sucess Symbol
+c2 = '#F8FAFC' # Hours
+c3 = '#FFC7ED' # Kubernetes context
+c4 = '#FF6AC1' # Kubernetes namespace
+c5 = '#F1F6F9'  # Git branch
+
+[palettes.samurai]
+c1 = '#FE6866'
+c2 = '#F1F5CF' 
+c3 = '#004176' 
+c4 = '#016C9A' 
+c5 = '#F1F6F9'  
+
+[palettes.blue]
+c1 = '#FFF3CD'
+c2 = '#FFF3CD'
+c3 = '#526D82'
+c4 = '#9DB2BF'
+c5 = '#F1F6F9'
+
+[palettes.beach]
+c1 = '#FFF3CD'
+c2 = '#FFF3CD'
+c3 = '#C2D9FF'
+c4 = '#D8D9DA'
+c5 = '#F1F6F9'
+
+[palettes.manga]
+c1 = '#E7333E'
+c2 = '#EEC255'
+c3 = '#2D90A9'
+c4 = '#7BB3B2'
+c5 = '#DA7D48'
+
+[palettes.neonpink]
+c1 = '#FF0066'
+c2 = '#ADEECF'
+c3 = '#164B60'
+c4 = '#0ABAB5'
+c5 = '#DA7D48'
+
+[fill]
+symbol = " "
+
+[character]
+success_symbol = "[ ➜](fg:c1)"
+error_symbol = "[ ✖](fg:#FF204E)"
+
+
+### Left prompt
+
+[directory]
+style = "fg:c1 italic"
+format = "[$path ]($style)"
+truncation_length = 3
+truncation_symbol = "…/"
+
+[git_branch]
+format = "[  $branch](fg:c5)"
+
+[git_status]
+stashed = "[*${count}](blue)"
+modified = "[!${count}](fg:#FF204E)"
+staged = "[+${count}](fg:#15F5BA)"
+untracked = "[?${count}](fg:c1)"
+deleted = "[-${count}](fg:c1)"
+format = "([$stashed$modified$staged$untracked $ahead_behind]($style))"
+#format = " ([$all_status $ahead_behind]($style))"
+
+[time]
+disabled = false
+format = '[ $time ](fg:c2 italic)'
+time_format = '󱑍 %H:%M'
+
+
+### Right prompt tools
+
+[kubernetes]
+disabled = false
+format = "[󱃾 $context](fg:c3 bold) [󰿄 $namespace](fg:c4 bold)"
+
+[aws]
+format = '[  $profile ](fg:#F5D3C4)'
